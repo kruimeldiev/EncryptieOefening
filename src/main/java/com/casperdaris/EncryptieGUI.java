@@ -27,8 +27,8 @@ public class EncryptieGUI {
         key.setFont(Font.font("SF Pro", 12));
         keyField = new TextField();
 
-        // Deze Listner zorgt ervoor dat alleen nummers kunnen worden ingevoerd in de keyField
-        // De listner kijkt naar de nieuwe ingevoerde value (input), wanneer deze geen cijfer is (\\d*), dan wordt de input vervangen door een lege String
+        // Deze Listener zorgt ervoor dat alleen nummers kunnen worden ingevoerd in de keyField
+        // De listener kijkt naar de nieuwe ingevoerde value (input), wanneer deze geen cijfer is (\\d*), dan wordt de input vervangen door een lege String
         keyField.textProperty().addListener(new ChangeListener<String>() {
             @Override
             public void changed(ObservableValue<? extends String> observable, String oldValue,
@@ -47,12 +47,19 @@ public class EncryptieGUI {
         encryptButton.setOnAction(event -> {
 
             if(!invoerField.getText().isEmpty()) {
-                // Eerst een key maken van de gebruiker input
-                Integer keyInt = 0;
+
+                // Key maken voor de encryptie
+                int key = 0;
                 if (!keyField.getText().isEmpty()) {
-                    keyInt = Integer.parseInt(keyField.getText());
+                    key = Integer.parseInt(keyField.getText());
                 }
-                uitvoerField.setText(Encryption.EncryptedText(invoerField.getText(), keyInt));
+
+                ByteEncryption crypto = new ByteEncryption();
+
+                String data = invoerField.getText();
+                String enc = new String(crypto.encrypt(data.getBytes(), key));
+
+                uitvoerField.setText(enc);
                 invoerField.clear();
             }
         });
@@ -60,11 +67,18 @@ public class EncryptieGUI {
         decryptButton = new Button("Decrypt");
         decryptButton.setOnAction(event -> {
             if (!uitvoerField.getText().isEmpty()) {
-                Integer keyInt = 0;
+
+                int key = 0;
                 if (!keyField.getText().isEmpty()) {
-                    keyInt = Integer.parseInt(keyField.getText());
+                    key = Integer.parseInt(keyField.getText());
                 }
-                invoerField.setText(Encryption.DecryptedText(uitvoerField.getText(), keyInt));
+
+                ByteEncryption crypto = new ByteEncryption();
+
+                String data = uitvoerField.getText();
+                String dec = new String(crypto.decrypt(data.getBytes(), key));
+
+                invoerField.setText(dec);
                 uitvoerField.clear();
             }
         });

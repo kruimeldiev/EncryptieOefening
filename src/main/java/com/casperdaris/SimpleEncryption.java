@@ -1,6 +1,6 @@
 package com.casperdaris;
 
-public class Encryption {
+public class SimpleEncryption {
 
     public static String EncryptedText(String text, Integer key) {
 

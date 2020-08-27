@@ -1,6 +1,7 @@
-com/casperdaris/Encryption.class
 com/casperdaris/Main.class
 module-info.class
+com/casperdaris/ByteEncryption.class
 com/casperdaris/SystemInfo.class
 com/casperdaris/EncryptieGUI$1.class
+com/casperdaris/SimpleEncryption.class
 com/casperdaris/EncryptieGUI.class
